@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小鹏 AI 编程之旅 | Personal Landing</title>
+  <meta name="description" content="记录 AI 学习、智能体构建、编程实践与值得反复回看的技术思考。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-bracket">{</span>
+        <span class="logo-text">小鹏</span>
+        <span class="logo-bracket">}</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">关于</a></li>
+        <li><a href="#skills">技能</a></li>
+        <li><a href="#focus">方向</a></li>
+        <li><a href="#timeline">历程</a></li>
+        <li><a href="#articles">文章</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero 区域 -->
+  <section class="hero" id="hero">
+    <canvas id="particleCanvas"></canvas>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge" id="heroBadge"></div>
+        <h1 class="hero-title">
+          <span class="title-line">小鹏</span>
+          <span class="title-line gradient-text">AI 编程之旅</span>
+        </h1>
+        <p class="hero-desc">
+          记录 AI 学习、智能体构建、编程实践<br>
+          与那些值得反复回看的技术思考
+        </p>
+        <div class="hero-actions">
+          <a href="https://peng-journal.vercel.app" class="btn btn-primary" target="_blank" rel="noopener">
+            <span class="btn-icon">→</span>
+            进入安静阅读
+          </a>
+          <a href="#about" class="btn btn-ghost">
+            了解更多
+          </a>
+        </div>
+        <p class="hero-transition-hint">从这里出发，进入专注阅读的世界 →</p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number" data-target="7">0</span>
+            <span class="stat-label">技术文章</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="10">0</span>
+            <span class="stat-label">技术标签</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="21">0</span>
+            <span class="stat-label">代码提交</span>
+          </div>
+        </div>
+      </div>
+      <!-- 代码终端 -->
+      <div class="hero-terminal">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="terminal-title">peng@dev ~ </span>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <div class="terminal-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command" id="terminalCmd"></span>
+            <span class="terminal-cursor">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <span>向下滚动</span>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// ABOUT ME</span>
+        <h2 class="section-title">关于我</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-avatar">
+          <div class="avatar-frame">
+            <div class="avatar-placeholder">
+              <span>鹏</span>
+            </div>
+            <div class="avatar-ring"></div>
+          </div>
+          <div class="avatar-name">Wan Yunpeng</div>
+          <div class="avatar-location">
+            <span class="location-icon">📍</span> Wuhan, China
+          </div>
+          <div class="avatar-quote">
+            "Code is poetry, AI is the muse."
+          </div>
+        </div>
+        <div class="about-content">
+          <p class="about-text">
+            我主要关注 <strong>AI</strong>、<strong>智能体</strong> 和 <strong>编程实践</strong>，
+            以及这些内容在真实项目里的落地方式。
+          </p>
+          <p class="about-text">
+            这个站点用来记录学习总结、项目复盘，和那些值得慢慢整理的技术想法。
+          </p>
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <span class="highlight-icon">🎯</span>
+              <div>
+                <strong>专注领域</strong>
+                <span>AI 智能体 & 工程化实践</span>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">🔧</span>
+              <div>
+                <strong>技术栈</strong>
+                <span>TypeScript · Astro · Python</span>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">💡</span>
+              <div>
+                <strong>理念</strong>
+                <span>学以致用，知行合一</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-tags">
+            <span class="tag">AI</span>
+            <span class="tag">智能体</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Astro</span>
+            <span class="tag">编程</span>
+            <span class="tag">技术写作</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 技能展示 -->
+  <section class="section section-dark" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// TECH STACK</span>
+        <h2 class="section-title">技能栈</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3 class="skill-category-title">
+            <span class="category-icon">⚡</span> 前端开发
+          </h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>TypeScript</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="90"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Astro</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>CSS / Tailwind</span>
+                <span class="skill-percent">80%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="80"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>React / Vue</span>
+                <span class="skill-percent">75%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="75"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-category-title">
+            <span class="category-icon">🤖</span> AI & 数据
+          </h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Prompt Engineering</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="95"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>LLM 应用开发</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Python</span>
+                <span class="skill-percent">80%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="80"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Multi-Agent 系统</span>
+                <span class="skill-percent">70%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="70"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-category-title">
+            <span class="category-icon">🛠️</span> 工具 & 平台
+          </h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Git / GitHub</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="90"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Vercel / 部署</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Claude Code / AI IDE</span>
+                <span class="skill-percent">80%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="80"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Docker</span>
+                <span class="skill-percent">65%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="65"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 技术方向 -->
+  <section class="section" id="focus">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// FOCUS AREAS</span>
+        <h2 class="section-title">技术方向</h2>
+      </div>
+      <div class="focus-grid">
+        <div class="focus-card">
+          <div class="card-glow"></div>
+          <div class="card-number">01</div>
+          <div class="card-icon">🤖</div>
+          <h3 class="card-title">AI 智能体实践</h3>
+          <p class="card-desc">
+            探索 AI 智能体的构建方式，从 Prompt 工程到多智能体协作，在真实场景中验证想法。
+          </p>
+          <ul class="card-list">
+            <li>Prompt Engineering 最佳实践</li>
+            <li>Multi-Agent 协作架构</li>
+            <li>RAG 检索增强生成</li>
+          </ul>
+          <div class="card-tags">
+            <span>Prompt Engineering</span>
+            <span>Multi-Agent</span>
+          </div>
+        </div>
+        <div class="focus-card">
+          <div class="card-glow"></div>
+          <div class="card-number">02</div>
+          <div class="card-icon">💻</div>
+          <h3 class="card-title">编程工程化</h3>
+          <p class="card-desc">
+            用 TypeScript 和现代工具链构建可维护的项目，追求代码质量与开发效率的平衡。
+          </p>
+          <ul class="card-list">
+            <li>TypeScript 类型体操</li>
+            <li>静态站点生成 (Astro)</li>
+            <li>自动化测试 & CI/CD</li>
+          </ul>
+          <div class="card-tags">
+            <span>TypeScript</span>
+            <span>Astro</span>
+          </div>
+        </div>
+        <div class="focus-card">
+          <div class="card-glow"></div>
+          <div class="card-number">03</div>
+          <div class="card-icon">📝</div>
+          <h3 class="card-title">技术写作与思考</h3>
+          <p class="card-desc">
+            把零散的知识整理成体系，通过写作加深理解，留下值得反复回看的技术笔记。
+          </p>
+          <ul class="card-list">
+            <li>学习方法论总结</li>
+            <li>项目复盘与反思</li>
+            <li>技术趋势洞察</li>
+          </ul>
+          <div class="card-tags">
+            <span>Markdown</span>
+            <span>技术博客</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 时间线 -->
+  <section class="section section-dark" id="timeline">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// JOURNEY</span>
+        <h2 class="section-title">成长历程</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2026-04-08</div>
+            <h3 class="timeline-title">搭建 Peng Journal 博客</h3>
+            <p class="timeline-desc">
+              用 Astro + TypeScript 搭建个人博客，部署到 Vercel，发布第一篇文章《构建一个易读的博客》。
+            </p>
+            <div class="timeline-tags">
+              <span>Astro</span><span>TypeScript</span><span>Vercel</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2026-04-13</div>
+            <h3 class="timeline-title">AI 智能体构建总结</h3>
+            <p class="timeline-desc">
+              从概念、执行循环到 OpenManus 拆解，梳理 AI 智能体从理解到落地的完整路径。
+            </p>
+            <div class="timeline-tags">
+              <span>AI 智能体</span><span>OpenManus</span><span>MCP</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2026-04-14</div>
+            <h3 class="timeline-title">Karpathy 编码规范实践</h3>
+            <p class="timeline-desc">
+              基于 Karpathy 理念制定 Claude 智能体编码行为规范，减少常见 LLM 编码错误。
+            </p>
+            <div class="timeline-tags">
+              <span>Agent</span><span>编码规范</span><span>Claude</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2026-04-20</div>
+            <h3 class="timeline-title">Harness Engineering 深度解读</h3>
+            <p class="timeline-desc">
+              探讨 AI Agent 真正的瓶颈为什么正在从模型转向运行系统（Harness）。
+            </p>
+            <div class="timeline-tags">
+              <span>Harness Engineering</span><span>Agent Engineering</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2026-05-09</div>
+            <h3 class="timeline-title">Agent Skills 知识检索 & 视频自动化</h3>
+            <p class="timeline-desc">
+              用 Agent Skills 构建本地知识库检索方案，以及用 Harness 编排 Agent 自动生成知识讲解视频。
+            </p>
+            <div class="timeline-tags">
+              <span>Agent Skills</span><span>RAG</span><span>Harness</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 名言 -->
+  <section class="section-quote">
+    <div class="container">
+      <blockquote class="quote">
+        <p class="quote-text">
+          "The best way to predict the future is to <span class="gradient-text">invent</span> it."
+        </p>
+        <cite class="quote-author">— Alan Kay</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 精选文章 -->
+  <section class="section" id="articles">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// FEATURED POSTS</span>
+        <h2 class="section-title">精选文章</h2>
+      </div>
+      <div class="articles-grid">
+        <article class="article-card">
+          <div class="article-cover">
+            <div class="cover-pattern cover-1"></div>
+            <span class="cover-emoji">🤖</span>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="article-date">2026-04-13</span>
+              <span class="article-tag featured-tag">★ 精选</span>
+            </div>
+            <h3 class="article-title">AI 智能体构建总结</h3>
+            <p class="article-desc">
+              从概念、执行循环到 OpenManus 拆解，梳理 AI 智能体从理解到落地的一条清晰路径。
+            </p>
+            <div class="article-tags-row">
+              <span class="article-tag-item">AI 智能体</span>
+              <span class="article-tag-item">OpenManus</span>
+              <span class="article-tag-item">MCP</span>
+            </div>
+            <a href="https://peng-journal.vercel.app/posts/ai-agent-building-summary" class="article-link" target="_blank" rel="noopener">
+              阅读全文 →
+            </a>
+          </div>
+        </article>
+        <article class="article-card">
+          <div class="article-cover">
+            <div class="cover-pattern cover-2"></div>
+            <span class="cover-emoji">⚙️</span>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="article-date">2026-04-20</span>
+              <span class="article-tag">Harness Engineering</span>
+            </div>
+            <h3 class="article-title">Harness Engineering：AI Agent 真正的瓶颈</h3>
+            <p class="article-desc">
+              从 Prompt、Context 到 Harness，理解 AI Agent 真正的系统瓶颈为什么正在从模型转向运行系统。
+            </p>
+            <div class="article-tags-row">
+              <span class="article-tag-item">AI 智能体</span>
+              <span class="article-tag-item">Harness</span>
+              <span class="article-tag-item">Agent Engineering</span>
+            </div>
+            <a href="https://peng-journal.vercel.app/posts/harness-engineering-for-ai-agents" class="article-link" target="_blank" rel="noopener">
+              阅读全文 →
+            </a>
+          </div>
+        </article>
+        <article class="article-card">
+          <div class="article-cover">
+            <div class="cover-pattern cover-3"></div>
+            <span class="cover-emoji">📐</span>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="article-date">2026-04-14</span>
+              <span class="article-tag featured-tag">★ 精选</span>
+            </div>
+            <h3 class="article-title">Karpathy-Inspired Claude Code Guidelines</h3>
+            <p class="article-desc">
+              基于 Karpathy 理念制定的 Claude 智能体编码行为规范，减少常见 LLM 编码错误。
+            </p>
+            <div class="article-tags-row">
+              <span class="article-tag-item">Agent</span>
+              <span class="article-tag-item">编码规范</span>
+            </div>
+            <a href="https://peng-journal.vercel.app/posts/how-i-structure-writing" class="article-link" target="_blank" rel="noopener">
+              阅读全文 →
+            </a>
+          </div>
+        </article>
+      </div>
+      <!-- 更多文章 -->
+      <div class="articles-grid articles-grid-secondary">
+        <article class="article-card article-card-sm">
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="article-date">2026-05-09</span>
+              <span class="article-tag">Agent Skills</span>
+            </div>
+            <h3 class="article-title">Agent Skills 知识库检索实战</h3>
+            <p class="article-desc">
+              用 Agent Skills 的渐进式披露思路，构建不依赖向量数据库的本地知识库检索方案。
+            </p>
+            <a href="https://peng-journal.vercel.app/posts/agent-skills-knowledge-retrieval" class="article-link" target="_blank" rel="noopener">
+              阅读全文 →
+            </a>
+          </div>
+        </article>
+        <article class="article-card article-card-sm">
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="article-date">2026-05-09</span>
+              <span class="article-tag">Harness</span>
+            </div>
+            <h3 class="article-title">Harness 实践：全自动制作知识讲解视频</h3>
+            <p class="article-desc">
+              拆解用 Skill 和 Harness Engineering 编排 Agent，稳定生成知识讲解视频网页的完整流程。
+            </p>
+            <a href="https://peng-journal.vercel.app/posts/harness-practice-automated-knowledge-video" class="article-link" target="_blank" rel="noopener">
+              阅读全文 →
+            </a>
+          </div>
+        </article>
+        <article class="article-card article-card-sm">
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="article-date">2026-04-08</span>
+              <span class="article-tag">前端</span>
+            </div>
+            <h3 class="article-title">构建一个易读的博客</h3>
+            <p class="article-desc">
+              从留白、字号和层级出发，整理一个更适合长期阅读的博客页面。
+            </p>
+            <a href="https://peng-journal.vercel.app/posts/building-a-readable-blog" class="article-link" target="_blank" rel="noopener">
+              阅读全文 →
+            </a>
+          </div>
+        </article>
+      </div>
+      <div class="articles-note">
+        <p>还有 1 篇草稿和 1 篇设计思考文章，<a href="https://peng-journal.vercel.app" target="_blank" rel="noopener">访问博客</a>查看全部 →</p>
+      </div>
+      <div class="articles-more">
+        <a href="https://peng-journal.vercel.app" class="btn btn-outline" target="_blank" rel="noopener">
+          查看全部文章 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section class="section section-dark" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// GET IN TOUCH</span>
+        <h2 class="section-title">联系方式</h2>
+      </div>
+      <div class="contact-grid">
+        <a href="mailto:914144406@qq.com" class="contact-card">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-info">
+            <div class="contact-label">邮箱</div>
+            <div class="contact-value">914144406@qq.com</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+        <a href="https://github.com/dadsfda" class="contact-card" target="_blank" rel="noopener">
+          <div class="contact-icon">🐙</div>
+          <div class="contact-info">
+            <div class="contact-label">GitHub</div>
+            <div class="contact-value">dadsfda</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+        <a href="https://peng-journal.vercel.app" class="contact-card" target="_blank" rel="noopener">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-info">
+            <div class="contact-label">博客</div>
+            <div class="contact-value">peng-journal.vercel.app</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+      </div>
+      <!-- 回到顶部 -->
+      <div class="back-to-top">
+        <a href="#hero" class="back-to-top-btn">
+          <span>↑</span>
+          <span>回到顶部</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-bracket">{</span>
+            <span class="logo-text">小鹏</span>
+            <span class="logo-bracket">}</span>
+          </div>
+          <p class="footer-desc">AI 编程之旅 · 持续学习 · 持续输出</p>
+        </div>
+        <div class="footer-nav">
+          <div class="footer-nav-group">
+            <h4>导航</h4>
+            <a href="#about">关于</a>
+            <a href="#skills">技能</a>
+            <a href="#articles">文章</a>
+          </div>
+          <div class="footer-nav-group">
+            <h4>社交</h4>
+            <a href="https://github.com/dadsfda" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://peng-journal.vercel.app" target="_blank" rel="noopener">博客</a>
+            <a href="mailto:914144406@qq.com">邮箱</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-text">
+          © 2026 Wan Yunpeng. Built with ❤️ and AI.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
