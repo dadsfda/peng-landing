@@ -106,6 +106,148 @@ window.addEventListener('resize', () => {
   initParticles();
 });
 
+// ===== Hero Ink Reveal Mask =====
+function initInkReveal() {
+  const hero = document.getElementById('hero');
+  const inkCanvas = document.getElementById('inkRevealCanvas');
+  if (!hero || !inkCanvas) return;
+
+  const inkCtx = inkCanvas.getContext('2d', { alpha: true });
+  const hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let enabled = false;
+  let dpr = 1;
+  let rafId = null;
+  let drops = [];
+  let lastPoint = null;
+  const recoverDelay = 120;
+  const recoverDuration = 850;
+
+  function getMaskColor() {
+    return getComputedStyle(document.documentElement).getPropertyValue('--bg-primary').trim() || '#0a0a0a';
+  }
+
+  function resizeInkCanvas() {
+    const rect = hero.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    inkCanvas.width = Math.max(1, Math.round(rect.width * dpr));
+    inkCanvas.height = Math.max(1, Math.round(rect.height * dpr));
+    inkCanvas.style.width = `${rect.width}px`;
+    inkCanvas.style.height = `${rect.height}px`;
+    inkCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    resetMask();
+  }
+
+  function resetMask() {
+    const rect = hero.getBoundingClientRect();
+    inkCtx.globalCompositeOperation = 'source-over';
+    inkCtx.fillStyle = getMaskColor();
+    inkCtx.clearRect(0, 0, rect.width, rect.height);
+    inkCtx.fillRect(0, 0, rect.width, rect.height);
+  }
+
+  function drawInkDrop(drop, now) {
+    const age = now - drop.startedAt;
+    const progress = Math.min(age / 520, 1);
+    const recoverProgress = Math.min(Math.max(age - recoverDelay, 0) / recoverDuration, 1);
+    const strength = Math.max(0, 1 - recoverProgress);
+    if (strength <= 0.02) return false;
+
+    const radius = drop.radius + progress * 44;
+    const edge = inkCtx.createRadialGradient(drop.x, drop.y, radius * 0.12, drop.x, drop.y, radius);
+    edge.addColorStop(0, `rgba(0, 0, 0, ${0.95 * strength})`);
+    edge.addColorStop(0.56, `rgba(0, 0, 0, ${0.65 * strength})`);
+    edge.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+    inkCtx.globalCompositeOperation = 'destination-out';
+    inkCtx.fillStyle = edge;
+    inkCtx.beginPath();
+    inkCtx.arc(drop.x, drop.y, radius, 0, Math.PI * 2);
+    inkCtx.fill();
+
+    for (let i = 0; i < 5; i++) {
+      const angle = drop.seed + i * 1.92;
+      const distance = radius * (0.28 + i * 0.075);
+      const satelliteRadius = radius * (0.16 + (i % 2) * 0.06);
+      inkCtx.beginPath();
+      inkCtx.arc(
+        drop.x + Math.cos(angle) * distance,
+        drop.y + Math.sin(angle * 1.17) * distance,
+        satelliteRadius,
+        0,
+        Math.PI * 2
+      );
+      inkCtx.fill();
+    }
+
+    return true;
+  }
+
+  function renderDrops(now) {
+    resetMask();
+    drops = drops.filter(drop => drawInkDrop(drop, now));
+    if (drops.length > 0) {
+      rafId = requestAnimationFrame(renderDrops);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function addDrop(x, y, radius) {
+    drops.push({
+      x,
+      y,
+      radius,
+      seed: Math.random() * Math.PI * 2,
+      startedAt: performance.now()
+    });
+    if (!rafId) rafId = requestAnimationFrame(renderDrops);
+  }
+
+  function handlePointerMove(event) {
+    if (!enabled) return;
+
+    const rect = hero.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
+
+    if (lastPoint) {
+      const dx = x - lastPoint.x;
+      const dy = y - lastPoint.y;
+      if (Math.hypot(dx, dy) < 12) return;
+    }
+
+    lastPoint = { x, y };
+    addDrop(x, y, 30 + Math.random() * 12);
+  }
+
+  function setInkRevealEnabled() {
+    enabled = hoverQuery.matches && !reduceMotionQuery.matches;
+    hero.classList.toggle('ink-reveal-enabled', enabled);
+    lastPoint = null;
+    drops = [];
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    if (enabled) resizeInkCanvas();
+  }
+
+  hero.addEventListener('pointermove', handlePointerMove, { passive: true });
+  hero.addEventListener('pointerleave', () => {
+    lastPoint = null;
+  });
+  window.addEventListener('resize', () => {
+    if (enabled) resizeInkCanvas();
+  });
+  hoverQuery.addEventListener('change', setInkRevealEnabled);
+  reduceMotionQuery.addEventListener('change', setInkRevealEnabled);
+  setInkRevealEnabled();
+}
+
+initInkReveal();
+
 // ===== Navbar Scroll =====
 const navbar = document.getElementById('navbar');
 
