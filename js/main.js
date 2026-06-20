@@ -248,6 +248,81 @@ function initInkReveal() {
 
 initInkReveal();
 
+// ===== Border Glow Cards =====
+function parseGlowHSL(hslStr) {
+  const match = hslStr.match(/([\d.]+)\s*([\d.]+)%?\s*([\d.]+)%?/);
+  if (!match) return { h: 188, s: 86, l: 68 };
+  return {
+    h: parseFloat(match[1]),
+    s: parseFloat(match[2]),
+    l: parseFloat(match[3])
+  };
+}
+
+function setGlowColorVars(card, glowColor, intensity) {
+  const { h, s, l } = parseGlowHSL(glowColor);
+  const opacities = [100, 60, 50, 40, 30, 20, 10];
+  const keys = ['', '-60', '-50', '-40', '-30', '-20', '-10'];
+
+  opacities.forEach((opacity, index) => {
+    const alpha = Math.min(opacity * intensity, 100);
+    card.style.setProperty(`--glow-color${keys[index]}`, `hsl(${h}deg ${s}% ${l}% / ${alpha}%)`);
+  });
+}
+
+function getBorderGlowCenter(card) {
+  const { width, height } = card.getBoundingClientRect();
+  return [width / 2, height / 2];
+}
+
+function getBorderGlowEdge(card, x, y) {
+  const [cx, cy] = getBorderGlowCenter(card);
+  const dx = x - cx;
+  const dy = y - cy;
+  const kx = dx === 0 ? Infinity : cx / Math.abs(dx);
+  const ky = dy === 0 ? Infinity : cy / Math.abs(dy);
+  return Math.min(Math.max(1 / Math.min(kx, ky), 0), 1);
+}
+
+function getBorderGlowAngle(card, x, y) {
+  const [cx, cy] = getBorderGlowCenter(card);
+  const dx = x - cx;
+  const dy = y - cy;
+  if (dx === 0 && dy === 0) return 0;
+
+  let degrees = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+  if (degrees < 0) degrees += 360;
+  return degrees;
+}
+
+function initBorderGlowCards() {
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!canHover) return;
+
+  document.querySelectorAll('[data-border-glow]').forEach(card => {
+    const glowColor = card.dataset.glowColor || '188 86 68';
+    const intensity = parseFloat(card.dataset.glowIntensity || '1');
+    setGlowColorVars(card, glowColor, intensity);
+
+    card.addEventListener('pointermove', event => {
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const edge = getBorderGlowEdge(card, x, y);
+      const angle = getBorderGlowAngle(card, x, y);
+
+      card.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`);
+      card.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`);
+    }, { passive: true });
+
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--edge-proximity', '0');
+    });
+  });
+}
+
+initBorderGlowCards();
+
 // ===== Navbar Scroll =====
 const navbar = document.getElementById('navbar');
 
